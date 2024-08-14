@@ -1,12 +1,22 @@
-# docker-mirakurun-epgstation
+# docker-mirakurun-epgstation-with-nvenc
 
 [Mirakurun](https://github.com/Chinachu/Mirakurun) + [EPGStation](https://github.com/l3tnun/EPGStation) の Docker コンテナ
+
+# Fork 元との差分
+
+- NVENC 対応の FFMPEG を別コンテナに切り出すことでバージョンアップ等の利便性を向上
+
+  - WSL2 上では DinD の re-mount ができない(バグ?)ため常時 ffmpeg 用コンテナをホスト側から起動して必要時に exec している
+
+- nvenc 用の live 配信 m2tsll 設定の追加
+- nvenc 用エンコード設定の追加(h264, h265, av1)
 
 ## 前提条件
 
 - Docker, docker-compose の導入が必須
 - ホスト上の pcscd は停止する
 - チューナーのドライバが適切にインストールされていること
+- NVENC 対応 GPU のドライバ等がインストールされていること
 
 ## インストール手順
 
@@ -56,35 +66,35 @@ sudo docker-compose up -d
 
 ### Mirakurun
 
-* ポート番号: 40772
+- ポート番号: 40772
 
 ### EPGStation
 
-* ポート番号: 8888
-* ポート番号: 8889
+- ポート番号: 8888
+- ポート番号: 8889
 
 ### 各種ファイル保存先
 
-* 録画データ
+- 録画データ
 
-```./recorded```
+`./recorded`
 
-* サムネイル
+- サムネイル
 
-```./epgstation/thumbnail```
+`./epgstation/thumbnail`
 
-* 予約情報と HLS 配信時の一時ファイル
+- 予約情報と HLS 配信時の一時ファイル
 
-```./epgstation/data```
+`./epgstation/data`
 
-* EPGStation 設定ファイル
+- EPGStation 設定ファイル
 
-```./epgstation/config```
+`./epgstation/config`
 
-* EPGStation のログ
+- EPGStation のログ
 
-```./epgstation/logs```
+`./epgstation/logs`
 
-## v1からの移行について
+## v1 からの移行について
 
 [docs/migration.md](docs/migration.md)を参照
