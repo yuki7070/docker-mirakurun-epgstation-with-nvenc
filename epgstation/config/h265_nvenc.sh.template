@@ -1,0 +1,3 @@
+#!/bin/sh
+/usr/bin/docker exec -i epg-ffmpeg-container /ffmpegwrapper.sh -y -fix_sub_duration -i $INPUT -map 0:v \
+    -c:v h265_nvenc -vf yadif -map 0:a -c:a aac -preset fast $OUTPUT
